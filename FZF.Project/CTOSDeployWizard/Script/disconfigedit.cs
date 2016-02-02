@@ -95,16 +95,8 @@ namespace CTOSDeployWizard.Script
 			ApplicationSettingsGroup ediappSection = ediconfig.GetSectionGroup("applicationSettings") as ApplicationSettingsGroup;
 
 
-			ClientSettingsSection edicss = ediappSection.Sections[0] as ClientSettingsSection;
-			edicss.Settings.Cast<SettingElement>().ToList().ForEach(se =>
-			{
-				if (se.Name == "CM_EDI_Service_DocumentManagement_WSTosEdiInterface_WSTosEdiInterface")
-				{
-					//WsDISInterAPI
-					se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), 
-						wsconfig.DISInterAPIServerSitePort, wsconfig.DISInterAPIServerSite);
-				}
-			});
+			SetDisUrl(wsconfig, ediconfig);
+
 			ediconfig.Save(ConfigurationSaveMode.Modified);			
 			LocalLoggingService.Info("更新EDI中间层站点[{0}]的web.config： 数据库连接地址、后台内部api服务地址", wsconfig.EdiServerSite);
 
@@ -143,59 +135,51 @@ namespace CTOSDeployWizard.Script
 			return true;
 		}
 
-		//设置后台配置文件中引用的其他服务地址。
-		private void SetDisUrl(WsConfig wsconfig, Configuration disconfig)
-		{
-
-			ApplicationSettingsGroup appSection = disconfig.GetSectionGroup("applicationSettings") as ApplicationSettingsGroup;
-			//appSection.Sections.Clear();
-
+		//修改applicationSettings
+		private void SetDisUrl(WsConfig wsconfig, Configuration config)
+		{			
+			ApplicationSettingsGroup appSection = config.GetSectionGroup("applicationSettings") as ApplicationSettingsGroup;			
 			ClientSettingsSection css = appSection.Sections[0] as ClientSettingsSection;
-			css.Settings.Cast<SettingElement>().ToList().ForEach(se =>
-			{
-				if (se.Name == "TosPACSAddress")
-				{
-					//前台中间层地址
-					se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), wsconfig.RpcDomainPort, wsconfig.SiteName);
-				}
-				else if (se.Name == "CM_CTOS_BLL_BLLWebProxy_WSBaseDataSearchForBilling_WSBaseDataSearch")
-				{
-					//wsbillingdata
-					if (string.IsNullOrEmpty(wsconfig.BillingDataServerSitePath))
-					{
-						se.Value.ValueXml.InnerText = wsconfig.BillingDataServerSite;
-					}
-					else
-					{
-						se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), wsconfig.BillingDataServerSitePort, wsconfig.BillingDataServerSite);
-					}
-				}
-				else if (se.Name == "CM_CTOS_BLL_BLLWebProxy_WSBillingExternalInterface_WSBillingExternalInterface")
-				{
-					//wsbillingInternel
-					if (string.IsNullOrEmpty(wsconfig.BillingInternelServerSitePath))
-					{
-						se.Value.ValueXml.InnerText = wsconfig.BillingInternelServerSite;
-					}
-					else
-					{
-						se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), wsconfig.BillingInternelServerSitePort, wsconfig.BillingInternelServerSite);
-					}
-				}
-				else if (se.Name == "CM_CTOS_BLL_BLLWebProxy_WSEdiTosInterface_WsEdiTosInterface")
-				{
-					//wsedi
-					if (string.IsNullOrEmpty(wsconfig.EdiServerSitePath))
-					{
-						se.Value.ValueXml.InnerText = wsconfig.EdiServerSite;
-					}
-					else
-					{
-						se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/WsEdiTosInterface.asmx", IISWorker.GetIp(), wsconfig.EdiServerSitePort, wsconfig.EdiServerSite);
-					}
-				}
 
-			});
+			SettingElement se = css.Settings.Get("CM_EDI_Service_DocumentManagement_WSTosEdiInterface_WSTosEdiInterface");
+			if (se != null)
+			{
+				css.Settings.Remove(se);
+				se.Value.ValueXml.InnerXml = string.Format("http://{0}:{1}/Service.asmx", IISWorker.GetIp(), wsconfig.DISInterAPIServerSitePort);
+				css.Settings.Add(se);
+			}
+			se = css.Settings.Get("CM_CTOS_BLL_BLLWebProxy_WSEdiTosInterface_WsEdiTosInterface");
+			if (se != null)
+			{
+				css.Settings.Remove(se);
+				se.Value.ValueXml.InnerXml = string.Format("http://{0}:{1}/Service.asmx", IISWorker.GetIp(), wsconfig.EdiServerSitePort);
+				css.Settings.Add(se);
+			}
+			se = css.Settings.Get("TosPACSAddress");
+			if (se != null)
+			{
+				css.Settings.Remove(se);
+				se.Value.ValueXml.InnerXml = string.Format("http://{0}:{1}/Service.asmx", IISWorker.GetIp(), wsconfig.RpcDomainPort);
+				css.Settings.Add(se);
+			}
+			se = css.Settings.Get("CM_CTOS_BLL_BLLWebProxy_WSBaseDataSearchForBilling_WSBaseDataSearch");
+			if (se != null)
+			{
+				string url = string.IsNullOrEmpty(wsconfig.BillingDataServerSitePath) ? se.Value.ValueXml.InnerText = wsconfig.BillingDataServerSite :string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), wsconfig.BillingDataServerSitePort, wsconfig.BillingDataServerSite);
+
+				css.Settings.Remove(se);
+				se.Value.ValueXml.InnerXml = url;
+				css.Settings.Add(se);
+			}
+			se = css.Settings.Get("CM_CTOS_BLL_BLLWebProxy_WSBillingExternalInterface_WSBillingExternalInterface");
+			if (se != null)
+			{
+				string url = string.IsNullOrEmpty(wsconfig.BillingInternelServerSitePath) ? se.Value.ValueXml.InnerText = wsconfig.BillingInternelServerSite :string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), wsconfig.BillingInternelServerSitePort);
+
+				css.Settings.Remove(se);
+				se.Value.ValueXml.InnerXml = url;
+				css.Settings.Add(se);
+			}
 		}
 
 		public string disxml = @"<?xml version=""1.0"" encoding=""utf-8"" ?>

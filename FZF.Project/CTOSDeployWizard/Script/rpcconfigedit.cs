@@ -49,12 +49,16 @@ namespace CTOSDeployWizard.Script
 				filemap.ExeConfigFilename = Path.Combine(wsconfig.RpcPhysicalPath, "web.config");//配置文件路径
 				var rpcconfig = ConfigurationManager.OpenMappedExeConfiguration(filemap, ConfigurationUserLevel.None);
 				rpcconfig.ConnectionStrings.ConnectionStrings["OracleConnection"].ConnectionString = wsconfig.OracleConnection;
+
+				//修改appSettings
 				rpcconfig.AppSettings.Settings["MSMQNAME"].Value = wsconfig.MsmqName;
 				rpcconfig.AppSettings.Settings["MSMQSERVERIP"].Value = IISWorker.GetIp();
 
 				rpcconfig.AppSettings.Settings["ENVTEXT"].Value = wsconfig.EnvText;
 				rpcconfig.AppSettings.Settings["ENVTEXTCOLOR"].Value = wsconfig.EnvTextColor;
 				rpcconfig.AppSettings.Settings["ENVBKCOLOR"].Value = wsconfig.EnvBKColor;
+
+				rpcconfig.AppSettings.Settings["DISWEBSERVICE"].Value = string.Format("http://{0}:{1}/WSTosPacs.asmx", IISWorker.GetIp(),wsconfig.DISInterAPIServerSitePort);
 
 				rpcconfig.Save(ConfigurationSaveMode.Modified);
 				LocalLoggingService.Info("更新前台中间层站点[{0}]的web.config： 消息队列地址、数据库连接地址、环境标识", wsconfig.SiteName);
