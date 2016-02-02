@@ -1,0 +1,2 @@
+# DeleteLog
+delete log files

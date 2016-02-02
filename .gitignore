@@ -1,0 +1,18 @@
+# git ignore file/
+/FZF.Common/Lib
+/FZF.Common/bin
+/FZF.Common/obj
+
+/FZF.Project/CTOSDeployWizard/Lib
+/FZF.Project/CTOSDeployWizard/bin
+/FZF.Project/CTOSDeployWizard/obj
+
+/FZF.Project/DeleteLog/Lib
+/FZF.Project/DeleteLog/bin
+/FZF.Project/DeleteLog/obj
+
+/FZF.Project/OraclePerfTest/Lib
+/FZF.Project/OraclePerfTest/bin
+/FZF.Project/OraclePerfTest/obj
+
+

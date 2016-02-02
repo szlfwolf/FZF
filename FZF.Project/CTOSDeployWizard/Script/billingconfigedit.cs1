@@ -1,0 +1,154 @@
+﻿
+
+using CM.TOS.V4.Common;
+using CM.TOS.V4.Common.Component;
+using CTOSDeployWizard;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace CTOSDeployWizard.Script
+{
+	class disconfigedit : IConfigEdit
+	{
+		public string Name
+		{
+			get { return "计费配置"; }
+		}
+
+		public bool modify(WsConfig wsconfig)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(wsconfig.BillingServerSitePath)) return false;
+
+				//检查站点配置文件是否存在
+				if (!Program.CheckConfig(new string[] { 
+					wsconfig.BillingServerSitePath, 
+					wsconfig.BillingDataServerSitePath, 
+					wsconfig.BillingInternelServerSitePath, 
+					wsconfig.BillingExternelServerSitePath
+					 }, "web.config"))
+				{
+					return false;
+				}
+
+				LocalLoggingService.Info("开始更新billing配置文件");
+
+				ExeConfigurationFileMap filemap = new ExeConfigurationFileMap();
+				filemap.ExeConfigFilename = Path.Combine(wsconfig.BillingServerSitePath, "web.config");//配置文件路径
+				if (File.Exists(filemap.ExeConfigFilename))
+				{
+					var disbillingconfig = ConfigurationManager.OpenMappedExeConfiguration(filemap, ConfigurationUserLevel.None);
+					disbillingconfig.ConnectionStrings.ConnectionStrings["SQLServerConnection"].ConnectionString = wsconfig.BillingSqlServerConnection;
+					disbillingconfig.Save(ConfigurationSaveMode.Modified);
+
+					LocalLoggingService.Info("更新Billing中间层站点[{0}]的web.config： sqlserver数据库连接地址", wsconfig.BillingServerSite);
+				}
+
+				//修改BillingExternelServer站点web.config
+				filemap.ExeConfigFilename = Path.Combine(wsconfig.BillingExternelServerSitePath, "web.config");//配置文件路径
+				if (File.Exists(filemap.ExeConfigFilename))
+				{
+					var disbillingExtconfig = ConfigurationManager.OpenMappedExeConfiguration(filemap, ConfigurationUserLevel.None);
+					disbillingExtconfig.ConnectionStrings.ConnectionStrings["SQLServerConnection"].ConnectionString = wsconfig.BillingSqlServerConnection;
+					disbillingExtconfig.Save(ConfigurationSaveMode.Modified);
+
+					LocalLoggingService.Info("更新BillingExternelServer中间层站点[{0}]的web.config： sqlserver数据库连接地址", wsconfig.BillingExternelServerSite);
+				}
+
+				//修改BillingInternelServer站点web.config
+				filemap.ExeConfigFilename = Path.Combine(wsconfig.BillingInternelServerSitePath, "web.config");//配置文件路径
+				if (File.Exists(filemap.ExeConfigFilename))
+				{
+					var disbillingIntconfig = ConfigurationManager.OpenMappedExeConfiguration(filemap, ConfigurationUserLevel.None);
+					disbillingIntconfig.ConnectionStrings.ConnectionStrings["SQLServerConnection"].ConnectionString = wsconfig.BillingSqlServerConnection;
+					disbillingIntconfig.Save(ConfigurationSaveMode.Modified);
+
+					LocalLoggingService.Info("更新BillingInternelServer中间层站点[{0}]的web.config： sqlserver数据库连接地址", wsconfig.BillingInternelServerSite);
+
+				}
+				//修改BillingDataServer站点web.config
+				filemap.ExeConfigFilename = Path.Combine(wsconfig.BillingDataServerSitePath, "web.config");//配置文件路径
+				if (File.Exists(filemap.ExeConfigFilename))
+				{					
+					var disbillingdataconfig = ConfigurationManager.OpenMappedExeConfiguration(filemap, ConfigurationUserLevel.None);
+					disbillingdataconfig.ConnectionStrings.ConnectionStrings["SQLServerConnection"].ConnectionString = wsconfig.BillingSqlServerConnection;
+					disbillingdataconfig.Save(ConfigurationSaveMode.Modified);
+
+					LocalLoggingService.Info("更新BillingDataServer中间层站点[{0}]的web.config： 数据库连接地址", wsconfig.BillingDataServerSite);
+				}
+
+				Program.CreateWs(wsconfig.BillingServerSitePath, wsconfig.BillingServerSite, wsconfig.BillingServerSitePort, wsconfig.IsCreateAppPool);
+				Program.CreateWs(wsconfig.BillingDataServerSitePath, wsconfig.BillingDataServerSite, wsconfig.BillingDataServerSitePort, wsconfig.IsCreateAppPool);
+				Program.CreateWs(wsconfig.BillingInternelServerSitePath, wsconfig.BillingInternelServerSite, wsconfig.BillingInternelServerSitePort, wsconfig.IsCreateAppPool);
+				Program.CreateWs(wsconfig.BillingExternelServerSitePath, wsconfig.BillingExternelServerSite, wsconfig.BillingExternelServerSitePort, wsconfig.IsCreateAppPool);
+			}
+			catch (Exception ex)
+			{
+				LocalLoggingService.Error(ex.Message);
+				return false;
+			}
+			return true;
+		}
+
+		private void SetDisUrl(WsConfig wsconfig, Configuration disconfig)
+		{
+
+			ApplicationSettingsGroup appSection = disconfig.GetSectionGroup("applicationSettings") as ApplicationSettingsGroup;
+			//appSection.Sections.Clear();
+
+			ClientSettingsSection css = appSection.Sections[0] as ClientSettingsSection;
+			css.Settings.Cast<SettingElement>().ToList().ForEach(se =>
+			{
+				if (se.Name == "TosPACSAddress")
+				{
+					//前台中间层地址
+					se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), wsconfig.RpcDomainPort, wsconfig.SiteName);
+				}
+				else if (se.Name == "CM_CTOS_BLL_BLLWebProxy_WSBaseDataSearchForBilling_WSBaseDataSearch")
+				{
+					//wsbillingdata
+					if (string.IsNullOrEmpty(wsconfig.BillingDataServerSitePath))
+					{
+						se.Value.ValueXml.InnerText = wsconfig.BillingDataServerSite;
+					}
+					else
+					{
+						se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), wsconfig.BillingDataServerSitePort, wsconfig.BillingDataServerSite);
+					}
+				}
+				else if (se.Name == "CM_CTOS_BLL_BLLWebProxy_WSBillingExternalInterface_WSBillingExternalInterface")
+				{
+					//wsbillingInternel
+					if (string.IsNullOrEmpty(wsconfig.BillingInternelServerSitePath))
+					{
+						se.Value.ValueXml.InnerText = wsconfig.BillingInternelServerSite;
+					}
+					else
+					{
+						se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/Service.asmx", IISWorker.GetIp(), wsconfig.BillingInternelServerSitePort, wsconfig.BillingInternelServerSite);
+					}
+				}
+				else if (se.Name == "CM_CTOS_BLL_BLLWebProxy_WSEdiTosInterface_WsEdiTosInterface")
+				{
+					//wsedi
+					if (string.IsNullOrEmpty(wsconfig.EdiServerSitePath))
+					{
+						se.Value.ValueXml.InnerText = wsconfig.EdiServerSite;
+					}
+					else
+					{
+						se.Value.ValueXml.InnerText = string.Format("http://{0}:{1}/{2}/WsEdiTosInterface.asmx", IISWorker.GetIp(), wsconfig.EdiServerSitePort, wsconfig.EdiServerSite);
+					}
+				}
+
+			});
+		}
+	}
+}
