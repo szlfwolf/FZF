@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>管理后台</title>
-    <link href="/public/resources/views/administrator/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/public/resources/views/administrator/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-    <link href="/public/resources/views/administrator/dist/css/sb-admin-2.css" rel="stylesheet">
-    <link href="/public/resources/views/administrator/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/resources/views/administrator/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/resources/views/administrator/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+    <link href="/resources/views/administrator/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="/resources/views/administrator/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <script src="/public/resources/views/administrator/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/public/resources/views/administrator/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/resources/views/administrator/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/resources/views/administrator/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -239,10 +239,47 @@
                          -->
 
                         <?php if ($type == 0) { ?>
+                                                <li>
+                                <a  class="<?php echo ($active=='online_user')? 'active' : '';?>" href="#collapseMonitor" data-toggle="collapse" class="nav-header collapsed">
+                                    <i class="fa fa-list fa-fw"></i>
+                                    <span class="menu-text"> 实时监控 </span>
+                                    <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
+                                </a>
+                                <ul id="collapseMonitor" class="nav nav-list collapse secondmenu" style="height: 0px;">                                  
+                                    <li>
+                                      <a class="<?php echo ($active=='online_user')? 'active' : '';?>" href="/administrator/online_user"><i class="fa fa-user fa-fw"></i> 在线用户</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户持仓监控</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 综合会员保证金监控</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户风控分组</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/objects"><i class="fa fa-user fa-fw"></i> 报牌价(标的)</a>
+                                      <!--
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 转接单设置</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 转接单规则管理</a>
+                                      -->
+                                    </li>					                                   
+                                </ul>
+                        </li>
+                                                <li>
+                                <a  class="<?php echo ($active=='agent')? 'active' : '';?>" href="#collapseReport" data-toggle="collapse" class="nav-header collapsed">
+                                    <i class="fa fa-list fa-fw"></i>
+                                    <span class="menu-text"> 报表管理 </span>
+                                    <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
+                                </a>
+                                <ul id="collapseReport" class="nav nav-list collapse secondmenu" style="height: 0px;">                                  
+                                    <li>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 会员资金报表</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 会员成交报表</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 机构资金报表</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 机构成交报表</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户资金报表</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户成交报表</a>
+                                    </li>					                                   
+                                </ul>
+                        </li>
                          <li>
                                 <a  class="<?php echo ($active=='agent')? 'active' : '';?>" href="#collapseOrder" data-toggle="collapse" class="nav-header collapsed">
                                     <i class="fa fa-list fa-fw"></i>
-                                    <span class="menu-text"> 统计 </span>
+                                    <span class="menu-text"> 统计查询 </span>
                                     <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
                                 </a>
                                 <ul id="collapseOrder" class="nav nav-list collapse secondmenu" style="height: 0px;">
@@ -254,6 +291,12 @@
                                     
                                     <li>
                                       <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 机构报表</a>
+                                    </li>
+                                    <li>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 成交明细查询</a>
+                                    </li>
+                                    <li>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 资金流水查询</a>
                                     </li>
 									<!--
                                     <li>
@@ -269,13 +312,14 @@
                                    
                                 </ul>
                         </li>
+
                           <?php } ?>
 
                           <?php if ($type == 4) { ?>
                          <li>
                                 <a  class="<?php echo ($active=='agent')? 'active' : '';?>" href="#collapseOrder" data-toggle="collapse" class="nav-header collapsed">
                                     <i class="fa fa-list fa-fw"></i>
-                                    <span class="menu-text"> 统计 </span>
+                                    <span class="menu-text"> 统计3 </span>
                                     <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
                                 </a>
                                 <ul id="collapseOrder" class="nav nav-list collapse secondmenu" style="height: 0px;">

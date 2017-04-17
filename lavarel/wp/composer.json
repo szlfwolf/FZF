@@ -4,6 +4,10 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+    "repositories": [
+        { "type": "composer", "url": "https://packagist.phpcomposer.com" },
+        { "packagist": false }
+    ],
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
@@ -11,7 +15,8 @@
         "predis/predis": "^1.0",
         "maatwebsite/excel": "~2.1.0",
         "laravelcollective/bus": "5.2",
-        "nesbot/carbon": "^1.21"
+        "nesbot/carbon": "^1.21",
+        "gregwar/captcha": "1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -50,6 +55,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "secure-http": false
     }
 }

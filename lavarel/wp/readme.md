@@ -25,3 +25,48 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+
+
+# soft 
+wampserver 2.5 + (安装到c:\wamp目录)
+# enviroment
+1.系统环境变量添加php目录(c:\wamp\bin\php\php5.5.12\)
+    1.1 修改php.exe的php.ini [c:\wamp\bin\php\php5.5.12\php.ini]
+    1.2 修改apache的php.ini [c:\wamp\bin\apache\apache2.4.9\bin\php.ini]
+        开启ssl：
+            extension=php_openssl.dll
+        开启XDebug：
+            xdebug.remote_enable = on
+            xdebug.remote_autostart = on
+
+2.安装composer
+    <code>
+    copy tools\composer.phar c:\wamp\bin\php\php5.5.12\ 
+    cd c:\wamp\bin\php\php5.5.12\ 
+    echo @echo off > composer.bat
+    echo. >> composer.bat
+    echo "php "%~dp0composer.phar" %*" >> composer.bat
+    composer -V
+    </code>
+3. 更改composer的国内镜像
+    <code> composer config -g repo.packagist composer https://packagist.phpcomposer.com </code>
+4. 更新依赖
+    <code> composer update</code>
+# run
+
+1.导入数据库
+<code>mysql -u root < xiaoxi.sql</code>
+2.运行
+<code>php artisan serve</code>
+
+## template
+
+http://crm.jftrust.cn[286/123456abc]
+
+http://abc.hzhuainuo.com/administrator
+http://abc.hzhuainuo.com/operationcenter
+http://abc.hzhuainuo.com/memberunitcenter/signin
+http://abc.hzhuainuo.com/staff
+
+http://abc.hzhuainuo.com/yuangongstaff[xiaoxiao@qq.com/123456]
+

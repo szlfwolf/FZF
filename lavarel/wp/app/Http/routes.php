@@ -132,3 +132,5 @@ Route::any('/callbacks/payments/yunpay/notify', 'CallbackController@listenToYunp
 Route::any('/callbacks/payments/yunpay/return', 'CallbackController@listenToYunpayReturn');
 
 Route::get('/test', 'TestController@run');
+Route::get('/kit/captcha/{tmp}', 'KitController@captcha');
+Route::get('/administrator/online_user', 'AdministratorController@online_user');

@@ -23,7 +23,9 @@
                                         <input class="form-control" placeholder="验证码" name="captcha" type="text" value="">
                                     </div>
                                     <div class="col-md-6 center-block">
-                                        <img src="<?php echo $captchaurl ?>" class="img-responsive" >
+                                    <a onclick="javascript:re_captcha();">
+                                        <img src="/kit/captcha/1" alt="验证码" title="刷新图片" width="100" height="40" id="verify" border="0" >
+                                    </a>
                                     </div>
                             
                                 </div>
@@ -37,4 +39,13 @@
                 </div>
             </div>
         </div>
+<script>
+
+function re_captcha() {
+$url = "/kit/captcha";
+$url = $url + "/" + Math.random();
+document.getElementById("verify").src=$url;
+
+}
+</script>
 <?php include_once 'footer.php'; ?>
