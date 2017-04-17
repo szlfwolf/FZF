@@ -15,7 +15,22 @@
                                 <div class="form-group">
                                     <input class="form-control" placeholder="您的密码" name="password" type="password" value="">
                                 </div>
+                               
+                                 <div class="form-group">
+                                <div class="row">
+                                
+                                    <div class="col-md-6">
+                                        <input class="form-control" placeholder="验证码" name="captcha" type="text" value="">
+                                    </div>
+                                    <div class="col-md-6 center-block">
+                                        <img src="<?php echo $captchaurl ?>" class="img-responsive" >
+                                    </div>
+                            
+                                </div>
+                                </div>
+
                                 <input type="submit" class="btn btn-success btn-block" value="确认">
+                                
                             </fieldset>
                         </form>
                     </div>
