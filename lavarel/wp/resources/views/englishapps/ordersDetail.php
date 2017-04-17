@@ -1,0 +1,71 @@
+<?php include_once 'header.php'; ?>
+
+<div class="head clearfix">
+    <div class="left">
+        <div class="wrapper">
+            <i>user</i>
+            <span class="user_body_phone"><?php echo($user->body_phone); ?></span>
+        </div>
+    </div>
+    <div class="right">
+        <div class="wrapper">
+            <i>user balance</i>
+            <span class="user_body_balance"><?php echo($user->body_balance); ?> CNY</span>
+        </div>
+    </div>
+</div>
+
+<div class="container orders">
+    <table class="orders">
+        <thead>
+            <tr>
+                <td width="50%">goods</td>
+                <td>amount</td>
+                <td>loss or gain</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-id="<?php echo $item->id; ?>" class="clearLine">
+                <td><?php echo $item->object->body_name; ?>
+                    <span style="color: <?php echo $item->body_direction ? '#ed0000' : '#00ff0a'; ?>;"><?php echo $item->body_direction ? 'be bullish' : 'be bearish'; ?></span>
+                </td>
+                <td><?php echo intval($item->body_stake); ?></td>
+                <td class="price <?php 
+                    if ($item->body_is_win == 1) echo 'red';
+                    else if ($item->body_is_draw == 1) echo '';
+                    else echo 'green';
+                ?>"><?php
+                    if ($item->body_is_win == 1) echo $item->body_bonus;
+                    else if ($item->body_is_draw == 1) echo '0';
+                    else echo $item->body_stake;
+                ?></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p>time: <?php echo date('Y-m-d H:i:s', strtotime($item->created_at)); ?>&nbsp;&nbsp;cycle: <?php
+ if($item->body_time == 60) echo '1M';
+ if($item->body_time == 300) echo '5M';
+ if($item->body_time == 900) echo '15M';
+ if($item->body_time == 1800) echo '30M';
+ if($item->body_time == 3600) echo '1H';
+ ?></p>
+                    <p>return rate: <?php
+                        if($item->body_time == 60) echo '75%';
+                        if($item->body_time == 300) echo '77%';
+                        if($item->body_time == 900) echo '80%';
+                        if($item->body_time == 1800) echo '82%';
+                        if($item->body_time == 3600) echo '85%';
+                        ?></p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <p style="margin-top: 12px;">open price: <?php echo sprintf('%.' . $item->object->body_price_decimal . 'f', $item->body_price_buying); ?></p>
+                    <p>settlement price: <span class="price_now"><?php echo sprintf('%.' . $item->object->body_price_decimal . 'f', $item->body_price_striked); ?></span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<?php include_once 'footer.php'; ?>
