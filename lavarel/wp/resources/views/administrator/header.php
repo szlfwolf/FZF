@@ -239,7 +239,7 @@
                          -->
 
                         <?php if ($type == 0) { ?>
-                                                <li>
+                        <li>
                                 <a  class="<?php echo ($active=='online_user')? 'active' : '';?>" href="#collapseMonitor" data-toggle="collapse" class="nav-header collapsed">
                                     <i class="fa fa-list fa-fw"></i>
                                     <span class="menu-text"> 实时监控 </span>
@@ -247,12 +247,13 @@
                                 </a>
                                 <ul id="collapseMonitor" class="nav nav-list collapse secondmenu" style="height: 0px;">                                  
                                     <li>
-                                      <a class="<?php echo ($active=='online_user')? 'active' : '';?>" href="/administrator/online_user"><i class="fa fa-user fa-fw"></i> 在线用户</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户持仓监控</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 综合会员保证金监控</a>
+                                      <a class="<?php echo ($active=='online_user')? 'active' : '';?>" href="/Monitor/online_user"><i class="fa fa-user fa-fw"></i> 在线用户</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/Monitor/positioncontrol"><i class="fa fa-user fa-fw"></i> 客户持仓监控</a>
+                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/Monitor/sbondcontrol"><i class="fa fa-user fa-fw"></i> 综合会员保证金监控</a>
+                                                                            
+                                      <!--
                                       <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户风控分组</a>
                                       <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/objects"><i class="fa fa-user fa-fw"></i> 报牌价(标的)</a>
-                                      <!--
                                       <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 转接单设置</a>
                                       <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 转接单规则管理</a>
                                       -->

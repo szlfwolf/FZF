@@ -850,7 +850,7 @@ class AdministratorController extends Controller {
 				$record->agent_name = $administrator->agent_name;
 				$record->from = $this->GetBrowser();
 				$record->online = "Y";
-				$record->save();
+				//$record->save();
 				return redirect('/administrator');
 			}
 			else{
@@ -1523,16 +1523,5 @@ class AdministratorController extends Controller {
 		'type' => $type,
 		]);
 	}
-	public function online_user(Request $request){
-		$this->requiredSession($request);
-		$datas = Logoninfo::where('online','Y')->orderBy('created_at', 'desc');
-		$datas = $datas->paginate(20);
-		//取		得身份类型
-		$type = $request->session()->get('type');
-		return view('administrator.online_user', [
-		'active' => 'online_user',
-		'datas' => $datas,
-		'type' => $type
-		]);
-	}
+
 }

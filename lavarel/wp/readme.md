@@ -45,7 +45,7 @@ wampserver 2.5 + (安装到c:\wamp目录)
     cd c:\wamp\bin\php\php5.5.12\ 
     echo @echo off > composer.bat
     echo. >> composer.bat
-    echo "php "%~dp0composer.phar" %*" >> composer.bat
+    echo php "%~dp0composer.phar" %* >> composer.bat
     composer -V
     </code>
 3. 更改composer的国内镜像
