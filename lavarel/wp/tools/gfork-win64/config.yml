@@ -1,0 +1,16 @@
+server_addr: "ittun.com:44433"
+tunnels:
+    ssh:
+       remote_port: 51001
+       proto:
+         tcp: ":22"
+    web:   
+     subdomain: test
+     root: "D:/go/ittunNgork/bin/html/"
+     proto:
+       http: ":8080"
+    web2:   
+     hostname: pimwx2
+     root: "D:/java/nginx-1.0.11/html"
+     proto:
+       http: ":80"   

@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="wap-font-scale" content="no">
     <meta name="format-detection" content="telephone=no">
-    <title><?php echo isset($title) ? $title :"ÂüÁª¹ú¼ÊÔËÓªÖÐÐÄ"; ?></title>
-    <link rel="stylesheet" href="/public/statics/app.css">
+    <title><?php echo isset($title) ? $title :"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óªï¿½ï¿½ï¿½ï¿½"; ?></title>
+    <link rel="stylesheet" href="/statics/app.css">
 	 
-    <script src="/public/statics/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/public/statics/app.js"></script>
+    <script src="/statics/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/statics/app.js"></script>
 </head>
 <body<?php if(isset($controller)) echo ' data-controller="' . $controller . '"';?> ontouchstart>

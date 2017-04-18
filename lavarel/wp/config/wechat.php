@@ -16,9 +16,9 @@ return [
     /**
      * 账号基本信息，请从微信公众平台/开放平台获取
      */
-    'app_id'  => env('WECHAT_APPID', ''),         // AppID
-    'secret'  => env('WECHAT_SECRET', ''),     // AppSecret
-    'token'   => env('WECHAT_TOKEN', ''),          // Token
+    'app_id'  => env('WECHAT_APPID', 'wxc9a84553478faf66'),         // AppID
+    'secret'  => env('WECHAT_SECRET', 'e1fa8811042b0063901451914334d2ea'),     // AppSecret
+    'token'   => env('WECHAT_TOKEN', 'fanerma'),          // Token
     'aes_key' => env('WECHAT_AES_KEY', ''),                    // EncodingAESKey
 
     /**
@@ -41,8 +41,26 @@ return [
      */
     'oauth' => [
          'scopes'   => array_map('trim', explode(',', env('WECHAT_OAUTH_SCOPES', 'snsapi_base'))),
-         'callback' => 'http://options.bceapp.com/',
+         'callback' => 'http://fanerma.ittun.com',
     ],
+		
+    /*
+     * 开发模式下的免授权模拟授权用户资料
+     *
+     * 当 enable_mock 为 true 则会启用模拟微信授权，用于开发时使用，开发完成请删除或者改为 false 即可
+     */
+		'enable_mock' => env('WECHAT_ENABLE_MOCK', true),
+		'mock_user' => [
+				"openid" =>"odh7zsgI75iT8FRh0fGlSojc9PWM",
+				// 以下字段为 scope 为 snsapi_userinfo 时需要
+				"nickname" => "overtrue",
+				"sex" =>"1",
+				"language" =>"zh_CN",
+				"province" =>"北京",
+				"city" =>"北京",
+				"country" =>"中国",
+				"headimgurl" => "http://wx.qlogo.cn/mmopen/C2rEUskXQiblFYMUl9O0G05Q6pKibg7V1WpHX6CIQaic824apriabJw4r6EWxziaSt5BATrlbx1GVzwW2qjUCqtYpDvIJLjKgP1ug/0",
+		],
 
     /**
      * 微信支付

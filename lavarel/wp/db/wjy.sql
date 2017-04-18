@@ -16837,3 +16837,19 @@ INSERT INTO `withdraw_requests` (`id`, `id_user`, `body_stake`, `body_name`, `bo
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- ----------------------------
+-- Table structure for `logoninfos`
+-- ----------------------------
+DROP TABLE IF EXISTS `logoninfos`;
+CREATE TABLE `logoninfos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `agent_name` varchar(20),
+  `from`varchar(20) ,
+  `cip` varchar(20) ,
+  `online` varchar(1) NOT NULL DEFAULT 'Y',
+  `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;

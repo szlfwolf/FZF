@@ -2,6 +2,7 @@
 
 Route::group(['middleware' => 'wechat.oauth'], function () {
     Route::get('/', 'ApplicationController@home');
+    Route::get('/msg', 'ApplicationController@home');
     Route::get('/objects', 'ApplicationController@objects');
     Route::get('/objects/{id}/{period}', 'ApplicationController@objectsDetail');
     Route::get('/orders/hold', 'ApplicationController@ordersHold');
