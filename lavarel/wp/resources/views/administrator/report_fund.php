@@ -14,7 +14,7 @@
 						<form class="form-inline">
 							<div class="form-group">
 								<label for="exampleInputName2">开始时间</label> 
-								<input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+								<input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" value="<?php echo date("Y-m-d"); ?>>">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail2">结束时间</label> <input type="text"
@@ -61,12 +61,7 @@
                                 <?php foreach ($datas as $item) { ?>
                                 <tr>
 							<td><?php echo $item->id; ?></td>
-							<td><?php echo $item->id_user; ?></td>
-							<td><?php echo $item->agent_name; ?></td>
-							<td><?php echo $item->cip; ?></td>
-							<td><?php echo $item->created_at; ?></td>
-							<td><?php echo $item->online; ?></td>
-							<td><?php echo $item->from; ?></td>
+
 						</tr>
                                 <?php } ?>
                             </tbody>

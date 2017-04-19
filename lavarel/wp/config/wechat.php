@@ -51,7 +51,7 @@ return [
      */
 		'enable_mock' => env('WECHAT_ENABLE_MOCK', true),
 		'mock_user' => [
-				"openid" =>"oP7_Uvz23Jwof6GkZWovnTyRm3Js",
+				"openid" =>"oQlEu00SozzaGklaXMvmor8Csl4w",
 				// 以下字段为 scope 为 snsapi_userinfo 时需要
 				"nickname" => "overtrue",
 				"sex" =>"1",

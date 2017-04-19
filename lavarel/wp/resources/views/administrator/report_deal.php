@@ -10,20 +10,21 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">查询条件</div>
 				<div class="panel-body">
-					
-						<form class="form-inline">
-							<div class="form-group">
-								<label for="exampleInputName2">开始时间</label> 
-								<input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
-							</div>
-							<div class="form-group">
-								<label for="exampleInputEmail2">结束时间</label> <input type="text"
-									class="form-control" id="exampleInputEmail2"
-									placeholder="jane.doe@example.com">
-							</div>
-							<button type="submit" class="btn btn-default">查询</button>
-						</form>
-					
+
+					<form class="form-inline" method="post" role="form">
+						<div class="form-group">
+							<label for="exampleInputName2">开始时间</label> <input type="text"
+								class="form-control" id="start_date" name="start_date"
+								>
+						</div>
+						<div class="form-group">
+							<label for="exampleInputEmail2">结束时间</label> <input type="text"
+								class="form-control" id="end_date" name="end_date"
+								>
+						</div>
+						<button type="submit" class="btn btn-default">查询</button>
+					</form>
+
 
 				</div>
 			</div>
@@ -53,33 +54,28 @@
                                     <tr>
 							<td colspan="11">暫時還沒有任何記錄</td>
 						</tr>
-                                <?php } ?>
-
-                                <?php foreach ($datas as $item) { ?>
+								<?php } ?>                          
+                                <?php foreach ($datas as $index=>$item) { ?>
                                 <tr>
-							<td><?php echo $item->id; ?></td>
-							<td><?php echo $item->id_user; ?></td>
+                            <td><?php echo ($index + 1)?></td>
+                            <td><?php echo $sdate.' 至 '.$edate; ?></td>
 							<td><?php echo $item->agent_name; ?></td>
-							<td><?php echo $item->cip; ?></td>
-							<td><?php echo $item->created_at; ?></td>
-							<td><?php echo $item->online; ?></td>
-							<td><?php echo $item->from; ?></td>
+							
+							<td><?php echo $item->body_name; ?></td>
+							<td><?php echo $item->volume; ?></td>
+							<td><?php echo $item->total; ?></td>
+							<td><?php echo $item->win_total; ?></td>
+							<td><?php echo $item->total - $item->win_total -$item->draw_total; ?></td>
+							<td><?php echo $item->draw_total; ?></td>
+							<td><?php echo $item->win_amount- $item->lose_amount; ?></td>
+							<td><?php echo ceil($item->win_total/$item->total *100); ?>%</td>
+							<td><?php echo $item->fee_total; ?></td>
+							<td></td>
 						</tr>
                                 <?php } ?>
+                                
                             </tbody>
-					<tfoot>
-						<tr>
-							<td colspan="13" style="text-align: center;">
-								<ul class="pagination">
-									<li class="paginate_button previous"><a
-										href="<?php echo $datas->previousPageUrl(); ?>">上一页</a></li>
-									<li class="paginate_button active"><a href="#"><?php echo $datas->currentPage(); ?> / <?php echo $datas->lastPage(); ?>, 共 <?php echo $datas->total(); ?> 条记录</a></li>
-									<li class="paginate_button next"><a
-										href="<?php echo $datas->nextPageUrl(); ?>">下一页</a></li>
-								</ul>
-							</td>
-						</tr>
-					</tfoot>
+
 				</table>
 			</div>
 		</div>
