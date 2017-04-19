@@ -240,16 +240,16 @@
 
                         <?php if ($type == 0) { ?>
                         <li>
-                                <a  class="<?php echo ($active=='online_user')? 'active' : '';?>" href="#collapseMonitor" data-toggle="collapse" class="nav-header collapsed">
+                                <a  href="#collapseMonitor" data-toggle="collapse" class="nav-header collapsed">
                                     <i class="fa fa-list fa-fw"></i>
                                     <span class="menu-text"> 实时监控 </span>
                                     <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
                                 </a>
-                                <ul id="collapseMonitor" class="nav nav-list collapse secondmenu" style="height: 0px;">                                  
+                                <ul id="collapseMonitor" class="nav nav-list collapse secondmenu <?php echo  (strpos($active,"monitor_") ===0)? 'in ' : '';?>" >                                  
                                     <li>
-                                      <a class="<?php echo ($active=='online_user')? 'active' : '';?>" href="/Monitor/online_user"><i class="fa fa-user fa-fw"></i> 在线用户</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/Monitor/positioncontrol"><i class="fa fa-user fa-fw"></i> 客户持仓监控</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/Monitor/sbondcontrol"><i class="fa fa-user fa-fw"></i> 综合会员保证金监控</a>
+                                      <a class="<?php echo ($active=='monitor_online_user')? 'active ' : '';?>" href="/administrator/monitor/online_user"><i class="fa fa-bell fa-fw"></i> 在线用户</a>
+                                      <a class="<?php echo ($active=='monitor_positioncontrol')? 'active ' : '';?>" href="/administrator/monitor/positioncontrol"><i class="fa fa-bell fa-fw"></i> 客户持仓监控</a>
+                                      <a class="<?php echo ($active=='monitor_sbondcontrol')? 'active ' : '';?>" href="/administrator/monitor/sbondcontrol"><i class="fa fa-bell fa-fw"></i> 综合会员保证金监控</a>
                                                                             
                                       <!--
                                       <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户风控分组</a>
@@ -260,20 +260,19 @@
                                     </li>					                                   
                                 </ul>
                         </li>
-                                                <li>
-                                <a  class="<?php echo ($active=='agent')? 'active' : '';?>" href="#collapseReport" data-toggle="collapse" class="nav-header collapsed">
+                         <li>
+                                <a  href="#collapseReport" data-toggle="collapse" class="nav-header collapsed">
                                     <i class="fa fa-list fa-fw"></i>
                                     <span class="menu-text"> 报表管理 </span>
                                     <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
                                 </a>
-                                <ul id="collapseReport" class="nav nav-list collapse secondmenu" style="height: 0px;">                                  
+                                <ul id="collapseReport" class="nav nav-list collapse secondmenu <?php echo (strpos($active,"report") ===0) ? 'in':'' ?>" >                                  
                                     <li>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 会员资金报表</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 会员成交报表</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 机构资金报表</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 机构成交报表</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户资金报表</a>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 客户成交报表</a>
+                                    	<a class="<?php echo ($active=='report_fund_user')? 'active' : '';?>"          href="/administrator/report/report_fund_user"><i class="fa fa-bar-chart fa-fw"></i> 客户资金报表</a>
+                                    	<a class="<?php echo ($active=='report_fund_agent')? 'active' : '';?>"       href="/administrator/report/report_fund_agent"><i class="fa fa-bar-chart fa-fw"></i> 机构资金报表</a>                                    
+                                      	<a class="<?php echo ($active=='report_fund_member')? 'active' : '';?>"  href="/administrator/report/report_fund_member"><i class="fa fa-bar-chart fa-fw"></i> 会员资金报表</a>
+                                      	<a class="<?php echo ($active=='report_deal_member')? 'active' : '';?>"  href="/administrator/report/report_deal_member"><i class="fa fa-bar-chart fa-fw"></i> 会员成交报表</a>
+                                                                            
                                     </li>					                                   
                                 </ul>
                         </li>

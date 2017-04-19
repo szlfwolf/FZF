@@ -850,7 +850,7 @@ class AdministratorController extends Controller {
 				$record->agent_name = $administrator->agent_name;
 				$record->from = $this->GetBrowser();
 				$record->online = "Y";
-				//$record->save();
+				$record->save();
 				return redirect('/administrator');
 			}
 			else{

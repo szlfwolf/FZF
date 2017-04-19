@@ -136,6 +136,12 @@ Route::get('/test', 'TestController@run');
 Route::get('/kit/captcha/{tmp}', 'KitController@captcha');
 
 #监控模块
-Route::get('/Monitor/online_user', 'MonitorController@online_user');
-Route::get('/Monitor/positioncontrol', 'MonitorController@positioncontrol');
-Route::get('/Monitor/sbondcontrol', 'MonitorController@sbondcontrol');
+Route::get('/administrator/monitor/online_user', 'MonitorController@online_user');
+Route::get('/administrator/monitor/positioncontrol', 'MonitorController@positioncontrol');
+Route::get('/administrator/monitor/sbondcontrol', 'MonitorController@sbondcontrol');
+
+#报表模块
+Route::get('/administrator/report/report_fund_user', 'ReportController@report_fund_user');
+Route::get('/administrator/report/report_fund_agent', 'ReportController@report_fund_agent');
+Route::get('/administrator/report/report_fund_member', 'ReportController@report_fund_member');
+Route::get('/administrator/report/report_deal_member', 'ReportController@report_deal_member');
