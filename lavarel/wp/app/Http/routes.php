@@ -141,7 +141,11 @@ Route::get('/administrator/monitor/positioncontrol', 'MonitorController@position
 Route::get('/administrator/monitor/sbondcontrol', 'MonitorController@sbondcontrol');
 
 #报表模块
-Route::get('/administrator/report/report_fund_user',   'ReportController@report_fund_user');
-Route::get('/administrator/report/report_fund_agent',  'ReportController@report_fund_agent');
-Route::get('/administrator/report/report_fund_member', 'ReportController@report_deal_member');
-Route::get('/administrator/report/report_deal_member', 'ReportController@report_deal_member');
+Route::any('/administrator/report/report_fund_user',   'ReportController@report_fund_user');
+Route::any('/administrator/report/report_fund_agent',  'ReportController@report_fund_agent');
+Route::any('/administrator/report/report_fund_member', 'ReportController@report_fund_member');
+Route::any('/administrator/report/report_deal', 'ReportController@report_deal');
+
+#统计模块
+Route::any('/administrator/report/stat_orders', 'ReportController@stat_orders');
+Route::any('/administrator/report/stat_records', 'ReportController@stat_records');

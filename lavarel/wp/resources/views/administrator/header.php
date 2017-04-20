@@ -13,6 +13,9 @@
     <script src="/resources/views/administrator/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/resources/views/administrator/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     
+    <script src="/resources/views/administrator/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/resources/views/administrator/bower_components/datePicker/WdatePicker.js"></script>
+    
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -271,7 +274,7 @@
                                     	<a class="<?php echo ($active=='report_fund_user')? 'active' : '';?>"          href="/administrator/report/report_fund_user"><i class="fa fa-bar-chart fa-fw"></i> 客户资金报表</a>
                                     	<a class="<?php echo ($active=='report_fund_agent')? 'active' : '';?>"       href="/administrator/report/report_fund_agent"><i class="fa fa-bar-chart fa-fw"></i> 机构资金报表</a>                                    
                                       	<a class="<?php echo ($active=='report_fund_member')? 'active' : '';?>"  href="/administrator/report/report_fund_member"><i class="fa fa-bar-chart fa-fw"></i> 会员资金报表</a>
-                                      	<a class="<?php echo ($active=='report_deal_member')? 'active' : '';?>"  href="/administrator/report/report_deal_member"><i class="fa fa-bar-chart fa-fw"></i> 会员成交报表</a>
+                                      	<a class="<?php echo ($active=='report_deal')? 'active' : '';?>"  href="/administrator/report/report_deal"><i class="fa fa-bar-chart fa-fw"></i> 成交报表</a>
                                                                             
                                     </li>					                                   
                                 </ul>
@@ -282,7 +285,7 @@
                                     <span class="menu-text"> 统计查询 </span>
                                     <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
                                 </a>
-                                <ul id="collapseOrder" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                                <ul id="collapseOrder" class="nav nav-list collapse secondmenu <?php echo (strpos($active,"stat_") ===0) ? 'in':'' ?>"">
 
 
                                      <li>
@@ -293,10 +296,10 @@
                                       <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 机构报表</a>
                                     </li>
                                     <li>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 成交明细查询</a>
+                                      <a class="<?php echo ($active=='stat_orders')? 'active' : '';?>" href="/administrator/report/stat_orders"><i class="fa fa-user fa-fw"></i> 成交明细查询</a>
                                     </li>
                                     <li>
-                                      <a class="<?php echo ($active=='users')? 'active' : '';?>" href="/administrator/ag_orders_count"><i class="fa fa-user fa-fw"></i> 资金流水查询</a>
+                                      <a class="<?php echo ($active=='stat_records')? 'active' : '';?>" href="/administrator/report/stat_records"><i class="fa fa-user fa-fw"></i> 资金流水查询</a>
                                     </li>
 									<!--
                                     <li>

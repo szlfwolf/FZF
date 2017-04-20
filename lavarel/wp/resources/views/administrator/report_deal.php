@@ -13,13 +13,13 @@
 
 					<form class="form-inline" method="post" role="form">
 						<div class="form-group">
-							<label for="exampleInputName2">开始时间</label> <input type="text"
-								class="form-control" id="start_date" name="start_date"
+							<label for="start_date">开始时间</label> <input type="text"
+								class="form-control" id="start_date" name="start_date" onClick="WdatePicker()" value=<?php echo $sdate ?>
 								>
 						</div>
 						<div class="form-group">
-							<label for="exampleInputEmail2">结束时间</label> <input type="text"
-								class="form-control" id="end_date" name="end_date"
+							<label for="end_date">结束时间</label> <input type="text"
+								class="form-control" id="end_date" name="end_date" onClick="WdatePicker()" value=<?php echo $edate ?>
 								>
 						</div>
 						<button type="submit" class="btn btn-default">查询</button>
@@ -59,7 +59,7 @@
                                 <tr>
                             <td><?php echo ($index + 1)?></td>
                             <td><?php echo $sdate.' 至 '.$edate; ?></td>
-							<td><?php echo $item->agent_name; ?></td>
+							<td><?php echo $item->id_name; ?></td>
 							
 							<td><?php echo $item->body_name; ?></td>
 							<td><?php echo $item->volume; ?></td>

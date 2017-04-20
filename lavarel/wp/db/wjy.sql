@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.14.8
 -- http://www.phpmyadmin.net
 --
@@ -16853,3 +16853,26 @@ CREATE TABLE `logoninfos` (
   `updated_at` timestamp ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+alter table `users` Add column `id_name` varchar(20);
+update users set id_name = '新用户';
+
+--
+-- Table structure for table `logoninfos`
+--
+
+DROP TABLE IF EXISTS `logoninfos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `logoninfos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `agent_name` varchar(20) DEFAULT NULL,
+  `from` varchar(20) DEFAULT NULL,
+  `cip` varchar(20) DEFAULT NULL,
+  `online` varchar(1) NOT NULL DEFAULT 'Y',
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
