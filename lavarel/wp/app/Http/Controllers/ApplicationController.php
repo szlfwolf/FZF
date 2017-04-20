@@ -291,7 +291,7 @@ class ApplicationController extends Controller {
                       $user->id_member = $agent['id'];
                  }
             }
-           
+            $user->id_name = $request->input('id_name');
             $user->save();
 
             return redirect('/');

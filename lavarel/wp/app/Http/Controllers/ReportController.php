@@ -150,7 +150,7 @@ where striked_at between :start_date and :end_date
 group by b.body_name,a.id_member,a.id_object,c.id_name', [
 		'start_date' =>  $sdate,
 		'end_date'   => $edate
-] );					
+] )->paginate(15);					
 		//$datas = $datas->paginate(20);
 		return view ( 'administrator.report_deal', [ 
 				'active' => 'report_deal',
@@ -214,7 +214,7 @@ group by b.body_name,a.id_member,a.id_object,c.id_name', [
 			$query = '1=1';
 			//表			示查询平台所有
 		}
-		$datas = Record::where('striked_at', '>', $sdate)->where('striked_at', '<', $edate) ->whereRaw($query)->orderBy('created_at', 'desc');
+		$datas = Record::where('created_at', '>', $sdate)->where('created_at', '<', $edate) ->whereRaw($query)->orderBy('created_at', 'desc');
 		if($request->input('id_user', null)) $datas->where('id_user', $request->input('id_user'));
 		$datas = $datas->paginate(20);
 		return view('administrator.stat_records', [

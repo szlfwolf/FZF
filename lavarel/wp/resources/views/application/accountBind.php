@@ -20,7 +20,12 @@
                 <input name="vcode" class="weui_input" type="number" placeholder="您收到的短信验证码">
             </div>
         </div>
-
+		<div class="weui_cell">
+            <div class="weui_cell_hd"><label class="weui_label" style="width: 5em;">姓名</label></div>
+            <div class="weui_cell_bd weui_cell_primary">
+                <input name="id_name" class="weui_input" type="text" placeholder="请输入姓名">
+            </div>
+        </div>
         
 
         <div class="weui_cell">
