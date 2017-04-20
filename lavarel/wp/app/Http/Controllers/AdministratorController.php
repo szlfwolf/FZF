@@ -828,7 +828,7 @@ class AdministratorController extends Controller {
 		if ($request->isMethod('post')) {
 			$userInput = $request->get('captcha');
 			//$builder = new CaptchaBuilder;
-		    if ( Session::get('milkcaptcha') != $userInput ){
+		    if (env("capcha") && Session::get('milkcaptcha') != $userInput  ){
 			//if(!$builder->testPhrase($userInput)) {
 				return view('administrator.signIn', [
 				'title' => '登录失败',
