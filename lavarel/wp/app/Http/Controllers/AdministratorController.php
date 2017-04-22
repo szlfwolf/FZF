@@ -843,7 +843,10 @@ class AdministratorController extends Controller {
 				$request->session()->put('administrator', $administrator->id);
 				$request->session()->put('type', $administrator->type);
 				$request->session()->put('id_member', $administrator->id);
-				//记				录登录信息
+				//
+				$administrator->updated_at = date('Y-m-d H:i:s');
+				$administrator->save();
+				/* 记				录登录信息
 				$record = new Logoninfo;
 				$record->id_user = $administrator->id;
 				$record->cip =  $this->Getip();
@@ -851,6 +854,7 @@ class AdministratorController extends Controller {
 				$record->from = $this->GetBrowser();
 				$record->online = "Y";
 				$record->save();
+				*/
 				return redirect('/administrator');
 			}
 			else{

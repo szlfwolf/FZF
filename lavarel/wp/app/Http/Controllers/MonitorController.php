@@ -26,7 +26,11 @@ class MonitorController extends Controller {
   //后台-实时监控-在线用户
   public function online_user(Request $request){
 		$this->requiredSession($request);
-		$datas = Logoninfo::where('online','Y')->orderBy('created_at', 'desc');
+		
+		$date= date('Y-m-d H:i:s',strtotime("-120 minute"));
+		
+		
+		$datas = User::where('updated_at','>=',$date)->orderBy('updated_at', 'desc');
 		$datas = $datas->paginate(20);
 		//取		得身份类型
 		$type = $request->session()->get('type');
@@ -35,6 +39,11 @@ class MonitorController extends Controller {
 		'datas' => $datas,
 		'type' => $type
 		]);
+		
+		$data = $request->session()->all();
+		if ($request->session()->has('wechat.oauth_user')) {
+			$user = session('wechat.oauth_user');
+		}
 	}
  //后台-实时监控-客户持仓监控
  public function positioncontrol(Request $request){

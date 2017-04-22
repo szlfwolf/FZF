@@ -7,11 +7,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>登录账号</th>
+                                    <th>用户类型</th>
                                     <th>用户姓名</th>
-                                    <th>登录IP</th>
                                     <th>登录时间</th>
-                                    <th>在线状态</th>
+                                    <th>联系电话</th>
                                     <th>登录途径</th>
                                     
                                 </tr>
@@ -24,15 +23,24 @@
                                     </tr>
                                 <?php } ?>
 
-                                <?php foreach ($datas as $item) { ?>
+                                <?php foreach ($datas as $index=>$item) { ?>
                                 <tr>
-                                    <td><?php echo $item->id; ?></td>
-                                    <td><?php echo $item->id_user; ?></td>
-                                    <td><?php echo $item->agent_name; ?></td>
-                                    <td><?php echo $item->cip; ?></td>
-                                    <td><?php echo $item->created_at; ?></td>
+                                    <td><?php echo ($index + 1)?></td>
+                                    <td><?php 
+                                    if( $item->type == 0) {echo '平台';} 
+                                    else if( $item->type == 4) {echo '会员';}
+                                    else if( $item->type == 1) {echo '机构';}
+                                    else if( $item->type == 3) {echo '客户';}
+                                    else {echo '非法类型:'.$item->type;} 
+                                    ?></td>
+                                    <td><?php echo $item->id_name; ?></td>
+                                    <td><?php echo $item->updated_at; ?></td>
+                                    <td><?php echo $item->body_phone; ?></td>
+                                    <td><?php if(!empty($item->id_wechat)) {echo '微信端';} else {echo '后台';} ?></td>
+                                    <!--                                    
                                     <td><?php echo $item->online; ?></td>
-                                    <td><?php echo $item->from; ?></td>                                                                        
+                                    <td><?php echo $item->from; ?></td>
+                                     -->                                                                        
                                 </tr>
                                 <?php } ?>
                             </tbody>

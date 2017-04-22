@@ -622,8 +622,12 @@ window.app = {
                 if (!$('input[name=mobile]').val()) {
                     app.services.dialog.alert('非常抱歉', '请填写您的手机号码');
                 } else if (!$('input[name=vcode]').val()) {
-                    app.services.dialog.alert('非常抱歉', '请填写你收到的短信验证码');
-                } else {
+                    app.services.dialog.alert('非常抱歉', '请填写您收到的短信验证码');                    
+                } else if (!$('input[name=id_name]').val()) {
+                	app.services.dialog.alert('非常抱歉', '请填写您的姓名');
+                } else if (!$('input[name=id_agent]').val()) {
+                	app.services.dialog.alert('非常抱歉', '请填写机构编码');
+                } else if (!$('input[name=vcode]').val()) {
                     $('form').submit();
                 }
             }
