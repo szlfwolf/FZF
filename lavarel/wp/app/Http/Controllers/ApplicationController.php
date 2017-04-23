@@ -515,38 +515,43 @@ class ApplicationController extends Controller {
                 $payRequest->body_stake = $request->input('stake');
                 $payRequest->body_gateway = 'online';
                 $payRequest->order_id = "CJ".time().time();
-                $payRequest->body_transfer_number = $request->input('kahao');
 
 
                 $payRequest->save();
 
 
-                $parameterForRequest = '';                
+                $parameterForRequest = '';
+                $parameterForSign = '';
                 $parameters = array(
                     'ORDER_ID' => $payRequest->order_id,
                     'ORDER_AMT' =>$payRequest->body_stake.".00",
                     'ORDER_TIME' => date('YmdHis'),
+                    'PAY_TYPE' => "13",
                     'USER_TYPE' => "02",
-                	'USER_ID' => "990584000011001",
-                	'SIGN_TYPE' => "03",                	
-                	'BUS_CODE' => '1025',
-                	'CCT' => 'CNY',
-                    'CARD_NO' => $request->input('kahao')
-                    );
-                $parameterForSign = '';
-                foreach ($parameters as $key => $value) {
-                    $parameterForSign = $parameterForSign  . $key . "=". $value ."&";
-                }
-                $key = '3C39982A991F0A01E5EC2DC0582437D2';
-
-                $sign = strtoupper(substr(MD5(strtoupper(MD5($parameterForSign.$key)).$key),8,16)); //strtoupper(md5($parameterForSign . 'key=' . "0123456789ABCDEF0123456789ABCDEF"));
+                    'USER_ID' => "990584000011001",
+                    'BUS_CODE' => '3001');
                 $parameters['ADD1'] = $payRequest->id;
                 $parameters['ADD2'] = $payRequest->id;
                 $parameters['ADD5'] = "cesi";
                 $parameters['GOODS_NAME'] = "CNY钱包";
                 $parameters['GOODS_DESC'] = "CNY钱包";
+
+
+
+                //print_r($parameters);exit();
+                ksort($parameters);
+                reset($parameters);
+                $parameterForSign = $parameters["ORDER_ID"].$parameters["ORDER_AMT"].$parameters["ORDER_TIME"].$parameters["PAY_TYPE"].$parameters["USER_TYPE"].$parameters["USER_ID"].$parameters["BUS_CODE"];
+
+                /*
+                foreach ($parameters as $key => $value) {
+                    $parameterForSign = $parameterForSign  . $value ;
+                }*/
+
+                $sign = strtoupper(substr(MD5(strtoupper(MD5($parameterForSign))."3C39982A991F0A01E5EC2DC0582437D2"),8,16)); //strtoupper(md5($parameterForSign . 'key=' . "0123456789ABCDEF0123456789ABCDEF"));
                 $parameters['SIGN'] =$sign;// "EBA20022222AAC31";//$sign;
-                
+                $parameters["CCT"] = "CNY";
+
                 $parameters["SIGN_TYPE"] = "03";
                 $parameters["BG_URL"] = env('PAYMENT_URL_NO');
                 $parameters["PAGE_URL"] = env('PAYMENT_URL_RE');
@@ -554,8 +559,7 @@ class ApplicationController extends Controller {
 
 
 
-                //$requestURL = 'http://nps.api.yiyoupay.net/YiYouQuickPay/servlet/QuickPay';
-                $requestURL = 'http://npspay.yiyoupay.net/NPS-API/controller/pay';
+                $requestURL = 'http://nps.api.yiyoupay.net/YiYouQuickPay/servlet/QuickPay';
 
 
                 return view('application.accountPayWechat', [

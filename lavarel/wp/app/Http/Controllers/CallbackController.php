@@ -23,6 +23,9 @@ class CallbackController extends Controller {
             "datetime" =>  $_REQUEST["ORDER_TIME"], // 交易时间
             "returncode" => $_REQUEST["RESP_CODE"]
         );
+        
+        Log::info('processYunPay message', $ReturnArray);
+        
 
         ksort($ReturnArray);
         reset($ReturnArray);

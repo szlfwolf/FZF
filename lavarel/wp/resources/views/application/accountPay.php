@@ -5,7 +5,7 @@
     <input id="input_stake" type="hidden" name="stake" value="100" />
     <table class="stacksTable">
         <tr>
-            <td><a data-stake="100" class="button_tap weui_btn weui_btn_plain_primary">100 元</a></td>
+            <td><a data-stake="1" class="button_tap weui_btn weui_btn_plain_primary">1 元</a></td>
             <td><a data-stake="300" class="button_tap weui_btn weui_btn_plain_default">300 元</a></td>
             <td><a data-stake="500" class="button_tap weui_btn weui_btn_plain_default">500 元</a></td>
         </tr>
