@@ -26,11 +26,32 @@ opacity: 1;
 /*弹出层插件样式结束*/
 </style>
 
-<script src="/public/statics_v2/js/libs/highstock/highstock.js"></script>
+<script src="/statics_v2/js/libs/highstock/highstock.js"></script>
 
-<div class="container objectsDetail">
+
+
+
+<div class="container dashboard objectsDetail">
+
     <table data-name="<?php echo $item->body_name; ?>" data-id="<?php echo $item->id; ?>" data-period="<?php echo $period; ?>" class="objectsDetail">
-        <thead>
+        <thead> 
+            <tr>
+            	<td colspan="2">
+            	        <div class="wrapper">
+            <i>用户</i>
+            <span class="user_body_phone"><?php echo($user->body_phone); ?></span>
+        </div>
+            	</td>
+                <td colspan="3">        <div class="wrapper">            
+          <a href="/account/pay" style="color:#7f8287">  <span class="user_body_phone" style="font-size:18px;">充值</span></a>
+        </div></td>
+                <td colspan="3">
+                        <div class="wrapper" style="align:center">            
+          <a href="/account/pay" style="color:#7f8287">  <span class="user_body_phone" style="font-size:18px;">提现</span></a>
+        </div>
+                </td>
+                
+            </tr>       	
             <tr>
                 <td colspan="4" width="50%">商品</td>
                 <td colspan="2">买入</td>
@@ -39,7 +60,7 @@ opacity: 1;
         </thead>
         <tbody>
             <tr data-id="<?php echo $item->id; ?>" class="clearLine">
-                <td colspan="4"><?php echo $item->body_name; ?> <?php echo($item->body_name_english); ?></td>
+                <td colspan="4"><?php echo $item->body_name; ?></td>
                 <td colspan="2" class="price <?php
                     if($item->body_price_previous > $item->body_price) echo 'green';
                     else echo 'red';  
@@ -56,42 +77,44 @@ opacity: 1;
                 <td colspan="3">
                     <div id="stakeSelector" class="selector">
                         <label for="select_stake">交易量</label>
-                        <input readonly="readonly" id="select_stake" type="number" value="100">
+                        <input readonly="readonly" id="select_stake" type="number" value="50">
                         <ul style="display: none;">
                              
-                            
+                            <li><a href="javascript:$('#select_stake').val(50); $('#stakeSelector ul').hide();">50</a></li>
                             <li><a href="javascript:$('#select_stake').val(100); $('#stakeSelector ul').hide();">100</a></li>
                             <li><a href="javascript:$('#select_stake').val(200); $('#stakeSelector ul').hide();">200</a></li>
                             <li><a href="javascript:$('#select_stake').val(500); $('#stakeSelector ul').hide();">500</a></li>
                             <li><a href="javascript:$('#select_stake').val(1000); $('#stakeSelector ul').hide();">1000</a></li>
                             <li><a href="javascript:$('#select_stake').val(2000); $('#stakeSelector ul').hide();">2000</a></li>
-							<li><a href="javascript:$('#select_stake').val(5000); $('#stakeSelector ul').hide();">5000</a></li>
+							<!-- <li><a href="javascript:$('#select_stake').val(5000); $('#stakeSelector ul').hide();">5000</a></li> -->
                         </ul>
                     </div>
                 </td>
                 <td colspan="2">
                     <div id="stakeSelector" class="selector">
                         <label for="select_stake">收益率</label>
-                        <input readonly="readonly" id="returnrate"  type="text" value="75%">
+                        <input readonly="readonly" id="returnrate"  type="text" value="77%">
 
                     </div>
                 </td>
                 <td colspan="3">
                     <div id="timeSelector" class="selector">
                         <label for="select_time">周期</label>
-                        <input readonly="readonly" id="select_time" type="text" value="1M">
+                        <input readonly="readonly" id="select_time" type="text" value="3M">
                         <ul style="display: none;">
-                            <li><a href="javascript:$('#select_time').val('1M'); $('#returnrate').attr('value','75%');$('#timeSelector ul').hide();">1M</a></li>
-                            <li><a href="javascript:$('#select_time').val('5M');$('#returnrate').attr('value','77%'); $('#timeSelector ul').hide();">5M</a></li>
-                            <li><a href="javascript:$('#select_time').val('15M');$('#returnrate').attr('value','80%'); $('#timeSelector ul').hide();">15M</a></li>
-                            <li><a href="javascript:$('#select_time').val('30M');$('#returnrate').attr('value','82%'); $('#timeSelector ul').hide();">30M</a></li>
-                            <li><a href="javascript:$('#select_time').val('1H');$('#returnrate').attr('value','85%');$('#timeSelector ul').hide();">1H</a></li>
+                            <!--  <li><a href="javascript:$('#select_time').val('1M'); $('#returnrate').attr('value','75%');$('#timeSelector ul').hide();">1M</a></li>-->
+                            <li><a href="javascript:$('#select_time').val('3M');$('#returnrate').attr('value','77%'); $('#timeSelector ul').hide();">3M</a></li>
+                            <li><a href="javascript:$('#select_time').val('5M');$('#returnrate').attr('value','80%'); $('#timeSelector ul').hide();">5M</a></li>
+                            <li><a href="javascript:$('#select_time').val('15M');$('#returnrate').attr('value','85%'); $('#timeSelector ul').hide();">15M</a></li>
+                            <li><a href="javascript:$('#select_time').val('30M');$('#returnrate').attr('value','87%'); $('#timeSelector ul').hide();">30M</a></li>
+                            <li><a href="javascript:$('#select_time').val('1H');$('#returnrate').attr('value','90%');$('#timeSelector ul').hide();">1H</a></li>
                         </ul>
                     </div>
                 </td>
             </tr>
             <tr class="hasLine">
-                <td data-period="60"<?php if($period==60) echo ' class="active"'; ?>>M1</td>
+                <!--  <td data-period="60"<?php if($period==60) echo ' class="active"'; ?>>M1</td>-->
+                <td data-period="180"<?php if($period==180) echo ' class="active"'; ?>>M3</td>
                 <td data-period="300"<?php if($period==300) echo ' class="active"'; ?>>M5</td>
                 <td data-period="900"<?php if($period==900) echo ' class="active"'; ?>>M15</td>
                 <td data-period="1800"<?php if($period==1800) echo ' class="active"'; ?>>M30</td>
@@ -120,6 +143,7 @@ opacity: 1;
         </tr>
     </table>
 </div>
+
 
 
 <script type="text/html" id="templet_dialog_confirm">
