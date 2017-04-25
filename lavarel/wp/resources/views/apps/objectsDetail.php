@@ -31,7 +31,7 @@ opacity: 1;
 
 
 
-<div class="container dashboard objectsDetail">
+<div class="container objectsDetail">
 
     <table data-name="<?php echo $item->body_name; ?>" data-id="<?php echo $item->id; ?>" data-period="<?php echo $period; ?>" class="objectsDetail">
         <thead> 

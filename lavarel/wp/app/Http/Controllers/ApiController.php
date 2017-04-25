@@ -22,7 +22,8 @@ use App\Http\Models\PayRequest;
 class ApiController extends Controller {
 
     protected function insertLineItem($period, $object, $objectPrice, $objectPriceTime) {
-        if(Line::where('id_object', $object->id)->where('body_period', $period)->where('created_at', '>=', date('Y-m-d H:i:s', time() - $period))->count() == 0) {
+    	$lastdate=date('Y-m-d H:i:s', time() - $period);
+        if(Line::where('id_object', $object->id)->where('body_period', $period)->where('created_at', '>=', $lastdate)->count() == 0) {
             $line = new Line;
             $line->id_object = $object->id;
             $line->body_period = $period;
@@ -30,11 +31,11 @@ class ApiController extends Controller {
             $line->body_high = $line->body_open;
             $line->body_low = $line->body_open;
             $line->body_close = $line->body_open;
-            $line->body_volume = 0;
+            $line->body_volume =  mt_rand(0, 100);            
             $line->save();
-            Line::where('id_object', $object->id)->where('body_period', $period)->where('created_at', '<', date('Y-m-d H:i:s', strtotime($objectPriceTime) - $period * 60))->delete();
+            //Line::where('id_object', $object->id)->where('body_period', $period)->where('created_at', '<', date('Y-m-d H:i:s', strtotime($objectPriceTime) - $period ))->delete();
         } else {
-            $line = Line::where('id_object', $object->id)->where('body_period', $period)->where('created_at', '>=', date('Y-m-d H:i:s', time() - $period))->first();
+        	$line = Line::where('id_object', $object->id)->where('body_period', $period)->where('created_at', '>=', $lastdate)->first();
             $line_closed_at = strtotime($line->created_at) + $line->body_period;
             if(time() < $line_closed_at) {
                 if($objectPrice > $line->body_high){
@@ -44,7 +45,9 @@ class ApiController extends Controller {
                     $line->body_low = sprintf('%.' . $object->body_price_decimal . 'f', $objectPrice);
                 }
                 $line->body_close = sprintf('%.' . $object->body_price_decimal . 'f', $objectPrice);
-                $line->body_volume = $line->body_volume + mt_rand(0, 1);
+                $line->body_volume = $line->body_volume + mt_rand(0, 100);                      
+                $line->updated_at = date('Y-m-d H:i:s', time());
+                $line->exists = true;
                 $line->save();
             }
         }
@@ -67,7 +70,9 @@ class ApiController extends Controller {
 
     protected function insertPrice($object, $objectPrice, $objectPriceTime, $objectPriceMin, $objectPriceMax, $objectPriceInterval) {
         
-        if(Price::where('id_object', $object->id)->where('body_price_time', date('Y-m-d H:i:s', time()))->count() == 0){
+    	$curdate=date('Y-m-d H:i:s', time());
+    	$price= null;
+    	if(Price::where('id_object', $object->id)->where('body_price_time', $curdate)->count() == 0){
             if(Price::where('id_object', $object->id)->where('body_price_time', $objectPriceTime)->count() == 0){
 
                 if(floatval($object->body_price) == floatval($objectPrice)){
@@ -86,12 +91,7 @@ class ApiController extends Controller {
                     $price->body_price_time = $objectPriceTime;
                     $price->save();
 
-                    $object->body_price_previous = $object->body_price;
-                    $object->body_price = $price->body_price;
-                    $object->body_price_min = $objectPriceMin;
-                    $object->body_price_max = $objectPriceMax;
-                    $object->body_price_interval = $objectPriceInterval;
-                    $object->save();
+
                     
                     Price::where('id_object', $object->id)->where('body_price_time', '<', date('Y-m-d H:i:s', strtotime($price->body_price_time) - 6400))->delete();
 
@@ -101,9 +101,20 @@ class ApiController extends Controller {
             }
         } else {
             $price = Price::where('id_object', $object->id)->where('body_price_time', date('Y-m-d H:i:s', time()))->first();
-            $object->body_price_previous = $object->body_price;
-            $object->body_price = $price->body_price;
-            $object->save();
+
+        }
+        if ( $price != null){
+        $object->body_price_previous = $object->body_price;
+        $object->body_price = $price->body_price;
+        if( $objectPriceMin <$object->body_price_min){
+        	$object->body_price_min = $objectPriceMin;
+        }
+        if($objectPriceMax>$object->body_price_max){
+        	$object->body_price_max = $objectPriceMax;
+        }
+        $object->body_price_interval = $objectPriceInterval;
+        $object->updated_at=$curdate;
+        $object->save();
         }
 
         $this->insertLine($object, $objectPrice, $objectPriceTime);
