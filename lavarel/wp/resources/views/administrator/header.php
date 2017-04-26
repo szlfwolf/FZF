@@ -35,6 +35,7 @@
                 <a class="navbar-brand" href="/administrator">管理后台</a>
             </div>
              <?php if ($type == 0) { ?>
+             <!-- 
             <ul class="nav navbar-top-links navbar-right">
                 <li>
                     <a href="/administrator/users/export">
@@ -77,6 +78,7 @@
                     </a>
                 </li>
             </ul>
+             -->
              <?php } ?>
 
             <div class="navbar-default sidebar" role="navigation">
@@ -203,37 +205,10 @@
                         <?php } ?>
 
 
-                         <?php if ($type == 0 || $type == 4)  { ?>
-                        <li>
-                            <a class="<?php echo ($active=='orders')? 'active' : '';?>" href="/administrator/orders"><i class="fa fa-table fa-fw"></i> 订单</a>
-                        </li>
-                        <li>
-                            <a class="<?php echo ($active=='records')? 'active' : '';?>" href="/administrator/records"><i class="fa fa-list-alt fa-fw"></i> 资金</a>
-                        </li>
-                        <li>
-                            <a class="<?php echo ($active=='payRequests')? 'active' : '';?>" href="/administrator/payRequests"><i class="fa fa-rmb fa-fw"></i> 充值</a>
-                        </li>
-                        <?php } ?>
 
 
-                        <?php if ($type == 0) { ?>
-                        <li>
-                            <a class="<?php echo ($active=='withdrawRequests')? 'active' : '';?>" href="/administrator/withdrawRequests"><i class="fa fa-briefcase fa-fw"></i> 提现</a>
-                        </li>
-                        <?php } ?>
-                        <li>
-                            <a class="<?php echo ($active=='objects')? 'active' : '';?>" href="/administrator/objects"><i class="fa fa-cloud fa-fw"></i> 标的</a>
-                        </li>
-                        <?php if ($type == 0) { ?>
-                        <li>
-                            <a class="<?php echo ($active=='feedbacks')? 'active' : '';?>" href="/administrator/feedbacks"><i class="fa fa-bug fa-fw"></i> 反馈</a>
-                        </li>
-                        <!--
-                        <li >
-                            <a class="<?php echo ($active=='administrators')? 'active' : '';?>" href="/administrator/administrators"><i class="fa fa-bug fa-fw"></i> 管理</a>
-                        </li>
-                      -->
-                        <?php } ?>
+
+
 
                        <!--
                         <li >
@@ -242,6 +217,36 @@
                          -->
 
                         <?php if ($type == 0) { ?>
+                        
+                                                <li>
+                                <a  href="#collapseParams" data-toggle="collapse" class="nav-header collapsed">
+                                    <i class="fa fa-list fa-fw"></i>
+                                    <span class="menu-text"> 参数管理 </span>
+                                    <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
+                                </a>
+                                <ul id="collapseParams" class="nav nav-list collapse secondmenu <?php echo  ( ($active=='records') || ($active=='payRequests') || ($active=='withdrawRequests'))? 'in ' : '';?>" >                                  
+                                    <li>
+                                      <a class="<?php echo ($active=='records')? 'active ' : '';?>" href="/administrator/records"><i class="fa fa-bell fa-fw"></i> 交易规则</a>
+                                      <a class="<?php echo ($active=='objects')? 'active' : '';?>" href="/administrator/objects"><i class="fa fa-bell fa-fw"></i> 商品类别</a>
+                                      <a class="<?php echo ($active=='feedbacks')? 'active ' : '';?>" href="/administrator/feedbacks"><i class="fa fa-bell fa-fw"></i> 反馈</a>
+                                    </li>					                                   
+                                </ul>
+                        </li>                        
+                                                <li>
+                                <a  href="#collapseFund" data-toggle="collapse" class="nav-header collapsed">
+                                    <i class="fa fa-list fa-fw"></i>
+                                    <span class="menu-text"> 资金管理 </span>
+                                    <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
+                                </a>
+                                <ul id="collapseFund" class="nav nav-list collapse secondmenu <?php echo  ( ($active=='records') || ($active=='payRequests') || ($active=='withdrawRequests'))? 'in ' : '';?>" >                                  
+                                    <li>
+                                      <a class="<?php echo ($active=='records')? 'active ' : '';?>" href="/administrator/records"><i class="fa fa-bell fa-fw"></i> 资金</a>
+                                      <a class="<?php echo ($active=='payRequests')? 'active ' : '';?>" href="/administrator/payRequests"><i class="fa fa-bell fa-fw"></i> 充值</a>
+                                      <a class="<?php echo ($active=='withdrawRequests')? 'active ' : '';?>" href="/administrator/withdrawRequests"><i class="fa fa-bell fa-fw"></i> 提现</a>
+                                    </li>					                                   
+                                </ul>
+                        </li>
+                        
                         <li>
                                 <a  href="#collapseMonitor" data-toggle="collapse" class="nav-header collapsed">
                                     <i class="fa fa-list fa-fw"></i>
@@ -285,9 +290,10 @@
                                     <span class="menu-text"> 统计查询 </span>
                                     <b class="fa fa-angle-down" style="float: right; line-height: 20px;"></b>
                                 </a>
-                                <ul id="collapseOrder" class="nav nav-list collapse secondmenu <?php echo (strpos($active,"stat_") ===0) ? 'in':'' ?>"">
-
-
+                                <ul id="collapseOrder" class="nav nav-list collapse secondmenu <?php echo ((strpos($active,"stat_")  ===0) || ($active=='orders') ) ? 'in':'' ?>"">
+                   					<li>
+                                        <a  class="<?php echo ($active=='orders')? 'active' : '';?>" href="/administrator/orders" > <i class="fa fa-user fa-fw"></i> 订单报表 </a>
+                                    </li>
                                      <li>
                                         <a href="/administrator/mem_orders_count"> <i class="fa fa-user fa-fw"></i> 会员报表 </a>
                                     </li>

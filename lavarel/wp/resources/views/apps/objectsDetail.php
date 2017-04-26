@@ -30,28 +30,39 @@ opacity: 1;
 
 
 
-
-<div class="container objectsDetail">
-
-    <table data-name="<?php echo $item->body_name; ?>" data-id="<?php echo $item->id; ?>" data-period="<?php echo $period; ?>" class="objectsDetail">
-        <thead> 
-            <tr>
-            	<td colspan="2">
-            	        <div class="wrapper">
+<div class="head clearfix">
+    <div class="left "style="width:25%">
+        <div class="wrapper">
             <i>用户</i>
             <span class="user_body_phone"><?php echo($user->body_phone); ?></span>
         </div>
-            	</td>
-                <td colspan="3">        <div class="wrapper">            
+    </div>   
+    
+    <div class="left clearfix"style="width:25%;text-align:center;">
+        <div class="wrapper">            
           <a href="/account/pay" style="color:#7f8287">  <span class="user_body_phone" style="font-size:18px;">充值</span></a>
-        </div></td>
-                <td colspan="3">
-                        <div class="wrapper" style="align:center">            
-          <a href="/account/pay" style="color:#7f8287">  <span class="user_body_phone" style="font-size:18px;">提现</span></a>
         </div>
-                </td>
-                
-            </tr>       	
+       </div>
+    
+         <div class="left clearfix"style="width:25%;text-align:center">
+        <div class="wrapper">            
+          <a href="/account/withdraw" style="color:#7f8287">  <span class="user_body_phone" style="font-size:18px;">提现</span></a>
+        </div>
+    </div>
+    <div class="right clearfix"style="width:22%;">    
+        <div class="wrapper">
+            <i>可用余额</i>
+            <span class="user_body_balance"><?php echo($user->body_balance); ?></span>
+        </div>
+    </div>
+</div>
+
+
+<div class=" objectsDetail clearfix" style="position:fixed;top:46px;width:100%">
+
+    <table data-name="<?php echo $item->body_name; ?>" data-id="<?php echo $item->id; ?>" data-period="<?php echo $period; ?>" class="objectsDetail">
+        <thead> 
+    	
             <tr>
                 <td colspan="4" width="50%">商品</td>
                 <td colspan="2">买入</td>
@@ -102,7 +113,7 @@ opacity: 1;
                         <label for="select_time">周期</label>
                         <input readonly="readonly" id="select_time" type="text" value="3M">
                         <ul style="display: none;">
-                            <!--  <li><a href="javascript:$('#select_time').val('1M'); $('#returnrate').attr('value','75%');$('#timeSelector ul').hide();">1M</a></li>-->
+                            <!-- <li><a href="javascript:$('#select_time').val('1M'); $('#returnrate').attr('value','75%');$('#timeSelector ul').hide();">1M</a></li> -->
                             <li><a href="javascript:$('#select_time').val('3M');$('#returnrate').attr('value','77%'); $('#timeSelector ul').hide();">3M</a></li>
                             <li><a href="javascript:$('#select_time').val('5M');$('#returnrate').attr('value','80%'); $('#timeSelector ul').hide();">5M</a></li>
                             <li><a href="javascript:$('#select_time').val('15M');$('#returnrate').attr('value','85%'); $('#timeSelector ul').hide();">15M</a></li>
@@ -113,8 +124,7 @@ opacity: 1;
                 </td>
             </tr>
             <tr class="hasLine">
-                <!--  <td data-period="60"<?php if($period==60) echo ' class="active"'; ?>>M1</td>-->
-                <td data-period="180"<?php if($period==180) echo ' class="active"'; ?>>M3</td>
+                 <td data-period="60"<?php if($period==60) echo ' class="active"'; ?>>M1</td>
                 <td data-period="300"<?php if($period==300) echo ' class="active"'; ?>>M5</td>
                 <td data-period="900"<?php if($period==900) echo ' class="active"'; ?>>M15</td>
                 <td data-period="1800"<?php if($period==1800) echo ' class="active"'; ?>>M30</td>
@@ -126,6 +136,7 @@ opacity: 1;
         </tbody>
     </table>
 </div>
+
 
 
 
