@@ -44,7 +44,7 @@ class ApiController extends Controller {
                     $line->body_low = sprintf('%.' . $object->body_price_decimal . 'f', $objectPrice);
                 }
                 $line->body_close = sprintf('%.' . $object->body_price_decimal . 'f', $objectPrice);
-                $line->body_volume = $line->body_volume + mt_rand(0, 1);
+                $line->body_volume = $line->body_volume + mt_rand(0, 100);
                 $line->save();
             }
         }
