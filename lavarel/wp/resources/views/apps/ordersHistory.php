@@ -64,6 +64,7 @@
             <tr data-id="<?php echo $item->id; ?>">
                 <td colspan="3"><p>时间: <?php echo date('Y-m-d H:i:s', strtotime($item->created_at)); ?>&nbsp;&nbsp;周期: <?php 
  if($item->body_time == 60) echo '1M';
+ if($item->body_time == 180) echo '3M';
  if($item->body_time == 300) echo '5M';
  if($item->body_time == 900) echo '15M';
  if($item->body_time == 1800) echo '30M';

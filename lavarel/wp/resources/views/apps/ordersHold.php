@@ -52,16 +52,18 @@
                 <td colspan="3">
                     <p>时间: <?php echo date('Y-m-d H:i:s', strtotime($item->created_at)); ?>&nbsp;&nbsp;周期:<span id="cicle"><?php
  if($item->body_time == 60) echo '1M';
+ if($item->body_time == 180) echo '3M';
  if($item->body_time == 300) echo '5M';
  if($item->body_time == 900) echo '15M';
  if($item->body_time == 1800) echo '30M';
  if($item->body_time == 3600) echo '1H';
  ?></span>&nbsp;&nbsp;收益率:<span id="return_rate"> <?php
                         if($item->body_time == 60) echo '75%';
-                        if($item->body_time == 300) echo '77%';
-                        if($item->body_time == 900) echo '80%';
-                        if($item->body_time == 1800) echo '82%';
-                        if($item->body_time == 3600) echo '85%';
+                        if($item->body_time == 180) echo '77%';
+                        if($item->body_time == 300) echo '80%';
+                        if($item->body_time == 900) echo '85%';
+                        if($item->body_time == 1800) echo '87%';
+                        if($item->body_time == 3600) echo '90%';
                         ?> </span></p>
                     <p>开仓价格: <?php echo(sprintf('%.' . $item->object->body_price_decimal . 'f', $item->body_price_buying)); ?>&nbsp;&nbsp;当前价格: <span class="price_now"><?php echo(sprintf('%.' . $item->object->body_price_decimal . 'f', $item->object->body_price)); ?></span></p>
                <p style="color:red">倒计时:<span id="daojishi" ><?php echo (strtotime($item->created_at) + $item->body_time) - time(); ?></span>秒</p>

@@ -268,6 +268,7 @@ class ApiController extends Controller {
 
                 $user = User::where('id', $order->id_user)->first();
                 $id_member = $user->id_member;
+                $id_agent = $user->id_agent;
                 if(!empty($id_member)){
                     $member = User::where('id', $id_member)->first();
                     $order->body_fee =  $order->body_stake * $member->fee /100 ;
@@ -849,17 +850,21 @@ class ApiController extends Controller {
                 $order->body_bonus = 0.75 * $request->input('stake');
 
             }
-            if($request->input('time')  == 300){
-                $order->body_bonus = 0.77 * $request->input('stake');
+            if($request->input('time')  == 180){
+            	$order->body_bonus = 0.77 * $request->input('stake');
+            
             }
-            if($request->input('time')  == 900){
+            if($request->input('time')  == 300){
                 $order->body_bonus = 0.80 * $request->input('stake');
             }
+            if($request->input('time')  == 900){
+                $order->body_bonus = 0.85 * $request->input('stake');
+            }
             if($request->input('time')  == 1800){
-                $order->body_bonus = 0.82 * $request->input('stake');
+                $order->body_bonus = 0.87 * $request->input('stake');
             }
             if($request->input('time')  == 3600){
-                $order->body_bonus = 0.85* $request->input('stake');
+                $order->body_bonus = 0.90* $request->input('stake');
             }
 
 
