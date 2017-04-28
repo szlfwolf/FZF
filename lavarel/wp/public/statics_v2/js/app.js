@@ -118,8 +118,8 @@ window.app = {
                 this.instance.body.on('click', 'input#select_time', this.instance.controller.clickedTimeList);
                 this.instance.controller.runRequest();
 
-                $('#liveChart').css('height', ($('body').height() - $('div.objectsDetail').height() - $('div.bottomLine').height() - $('div.navigator').height()) + 'px');
-                $('#liveChart').css('top', $('div.objectsDetail').height() + 'px');
+                $('#liveChart').css('height', ($('body').height() - $('div.objectsDetail').height() - $('div.head').height() - $('div.bottomLine').height() - $('div.navigator').height()) + 'px');
+                $('#liveChart').css('top', $('div.objectsDetail').height() + $('div.head').height()  + 'px');
 
             },
             initLiveChart: function () {
@@ -670,34 +670,13 @@ window.app = {
                                 if ($item.body_price > parseFloat($(this).attr('data-price-buying'))) {
                                     $(this).next().find('.price_now').removeClass('green').addClass('red');
 									var  currentnum = $(this).find('#currentnumber').html();
+									var currentretrate =  $(this).find('#currentretrate').html();
 									 $(this).find('#yingkui').css("color","red");
+									 
+									 $(this).find('#yingkui').html(currentnum*currentretrate);
+									 $(this).next().find('#return_rate').html( (currentretrate*100) +"%");
 
 
-
-                                    if( $(this).next().find('#cicle').html() == "1M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.75);
-                                        $(this).next().find('#return_rate').html("75%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "3M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.77);
-                                        $(this).next().find('#return_rate').html("77%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "5M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.80);
-                                        $(this).next().find('#return_rate').html("80%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "15M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.85);
-                                        $(this).next().find('#return_rate').html("85%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "30M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.87);
-                                        $(this).next().find('#return_rate').html("87%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "1H" ){
-                                        $(this).find('#yingkui').html(currentnum*0.90);
-                                        $(this).next().find('#return_rate').html("90%");
-                                    }
 
                                 } else {
                                     $(this).next().find('.price_now').removeClass('red').addClass('green');
@@ -717,32 +696,11 @@ window.app = {
                                     $(this).next().find('.price_now').removeClass('green').addClass('red');
 									var  currentnum = $(this).find('#currentnumber').html();
 									$(this).find('#yingkui').css("color","red");
+									
+									 $(this).find('#yingkui').html(currentnum*currentretrate);
+									 $(this).next().find('#return_rate').html( (currentretrate*100) +"%");
 
-                                    if( $(this).next().find('#cicle').html() == "1M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.75);
-                                        $(this).next().find('#return_rate').html("75%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "3M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.77);
-                                        $(this).next().find('#return_rate').html("77%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "5M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.80);
-                                        $(this).next().find('#return_rate').html("80%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "15M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.85);
-                                        $(this).next().find('#return_rate').html("85%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "30M" ){
-                                        $(this).find('#yingkui').html(currentnum*0.87);
-                                        $(this).next().find('#return_rate').html("87%");
-                                    }
-                                    if( $(this).next().find('#cicle').html() == "1H" ){
-                                        $(this).find('#yingkui').html(currentnum*0.90);
-                                        $(this).next().find('#return_rate').html("90%");
-                                    }
-
+                                  
                                 } else {
                                     $(this).next().find('.price_now').removeClass('red').addClass('green');
 									var  currentnum = $(this).find('#currentnumber').html();

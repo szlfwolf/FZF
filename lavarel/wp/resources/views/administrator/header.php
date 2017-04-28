@@ -226,7 +226,7 @@
                                 </a>
                                 <ul id="collapseParams" class="nav nav-list collapse secondmenu <?php echo  ( ($active=='records') || ($active=='payRequests') || ($active=='withdrawRequests'))? 'in ' : '';?>" >                                  
                                     <li>
-                                      <a class="<?php echo ($active=='records')? 'active ' : '';?>" href="/administrator/records"><i class="fa fa-bell fa-fw"></i> 交易规则</a>
+                                      <a class="<?php echo ($active=='records')? 'active ' : '';?>" href="/administrator/setting"><i class="fa fa-bell fa-fw"></i> 交易规则</a>
                                       <a class="<?php echo ($active=='objects')? 'active' : '';?>" href="/administrator/objects"><i class="fa fa-bell fa-fw"></i> 商品类别</a>
                                       <a class="<?php echo ($active=='feedbacks')? 'active ' : '';?>" href="/administrator/feedbacks"><i class="fa fa-bell fa-fw"></i> 反馈</a>
                                     </li>					                                   

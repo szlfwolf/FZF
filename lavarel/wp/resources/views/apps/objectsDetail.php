@@ -29,8 +29,10 @@ opacity: 1;
 <script src="/statics_v2/js/libs/highstock/highstock.js"></script>
 
 
+<div class=" objectsDetail clearfix" style="position:fixed;top:46px;width:100%;z-index:10">
 
-<div class="head clearfix">
+
+<div class="head" >
     <div class="left "style="width:25%">
         <div class="wrapper">
             <i>用户</i>
@@ -56,9 +58,6 @@ opacity: 1;
         </div>
     </div>
 </div>
-
-
-<div class=" objectsDetail clearfix" style="position:fixed;top:46px;width:100%">
 
     <table data-name="<?php echo $item->body_name; ?>" data-id="<?php echo $item->id; ?>" data-period="<?php echo $period; ?>" class="objectsDetail">
         <thead> 

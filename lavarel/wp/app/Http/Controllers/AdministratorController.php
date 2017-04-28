@@ -89,19 +89,26 @@ class AdministratorController extends Controller {
 		$alert = null;
 		if ($request->isMethod('post')) {
 			$config = Config::find(1);
-			$config->starttime = $request->input('starttime');
-			$config->endtime = $request->input('endtime');
+			$config->limit_num = $request->input('limit_num');
+			$config->limit_amount = $request->input('limit_amount');
+			$config->return_rate_60 = $request->input('return_rate_60');
+			$config->return_rate_180 = $request->input('return_rate_180');
+			$config->return_rate_300 = $request->input('return_rate_300');
+			$config->return_rate_600 = $request->input('return_rate_600');
+			$config->return_rate_1800 = $request->input('return_rate_1800');
+			$config->return_rate_3600 = $request->input('return_rate_3600');
+			
+			$config->open_time = $request->input('open_time');
+			$config->stop_time = $request->input('stop_time');
 			$config->save();
 			$alert = "保存成功";
 		}
 		$config = Config::find(1);
-		$starttime = $config->starttime;
-		$endtime = $config->endtime;
+		
 		return view('administrator.setting', [
 		'active' => 'setting',
 		'alert' => $alert,
-		'starttime'=>$starttime,
-		'endtime'=>$endtime,
+		'config'=>$config,
 		'type' =>$type
 		]);
 	}

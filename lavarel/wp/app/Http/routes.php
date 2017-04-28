@@ -149,3 +149,6 @@ Route::any('/administrator/report/report_deal', 'ReportController@report_deal');
 #统计模块
 Route::any('/administrator/report/stat_orders', 'ReportController@stat_orders');
 Route::any('/administrator/report/stat_records', 'ReportController@stat_records');
+
+#参数设置
+Route::any('/administrator/paras/rule', 'ParasController@rule');

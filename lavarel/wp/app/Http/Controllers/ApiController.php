@@ -838,6 +838,8 @@ class ApiController extends Controller {
         if($user->body_balance < 0) {
             DB::rollback();
         } else {
+        	
+        	$config = Config::find(1);
 
             $order = new Order;
             $order->id_user = $user->id;
@@ -847,25 +849,26 @@ class ApiController extends Controller {
 
 
             if($request->input('time')  == 60){
-                $order->body_bonus = 0.75 * $request->input('stake');
-
+            	$order->body_return_rate = $config->return_rate_60;
             }
             if($request->input('time')  == 180){
-            	$order->body_bonus = 0.77 * $request->input('stake');
+            	$order->body_return_rate = $config->return_rate_180;
             
             }
             if($request->input('time')  == 300){
-                $order->body_bonus = 0.80 * $request->input('stake');
+                $order->body_return_rate = $config->return_rate_300;
             }
             if($request->input('time')  == 900){
                 $order->body_bonus = 0.85 * $request->input('stake');
             }
             if($request->input('time')  == 1800){
-                $order->body_bonus = 0.87 * $request->input('stake');
+                $order->body_return_rate = $config->return_rate_1800;
             }
             if($request->input('time')  == 3600){
-                $order->body_bonus = 0.90* $request->input('stake');
+            	$order->body_return_rate = $config->return_rate_3600;
             }
+            
+            $order->body_bonus = $order->body_return_rate * $request->input('stake');
 
 
             $order->body_direction = $request->input('direction');

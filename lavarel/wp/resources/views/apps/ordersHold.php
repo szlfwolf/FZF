@@ -45,7 +45,7 @@
                 <td><?php echo $item->object->body_name; ?> 
                     <span style="color: <?php echo $item->body_direction ? '#ed0000' : '#00ff0a'; ?>;"><?php echo $item->body_direction ? '看涨' : '看跌'; ?></span>
                 </td>
-                <td ><span id="currentnumber"><?php echo intval($item->body_stake); ?></span></td>
+                <td ><span id="currentnumber"><?php echo intval($item->body_stake); ?></span><input type="hidden" id="currentretrate" value="<?php echo $item->body_return_rate ?>" /></td>
                 <td  > <span id="yingkui"></span>  </td>
             </tr>
             <tr>

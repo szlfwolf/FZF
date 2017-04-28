@@ -90,16 +90,6 @@ INSERT INTO `captchas` (`id`, `body_mobile`, `body_code`, `created_at`, `updated
 
 -- --------------------------------------------------------
 
---
--- 表的结构 `configs`
---
-
-CREATE TABLE IF NOT EXISTS `configs` (
-  `id` int(11) NOT NULL,
-  `starttime` timestamp NULL DEFAULT NULL COMMENT '节假日开始时间',
-  `endtime` timestamp NULL DEFAULT NULL COMMENT '节假日结束时间',
-  `updated_at` timestamp NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `configs`
@@ -16876,3 +16866,22 @@ CREATE TABLE `logoninfos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+drop table `configs`;
+create table if not exists `configs` (
+  `id` int(11) not null AUTO_INCREMENT,
+  `limit_num` int (11) not null default 10,
+  `limit_amount` int (11) not null default 5000,
+  `return_rate_60` decimal(8,2) not null default 0.77,
+  `return_rate_180` decimal(8,2) not null default 0.77,
+  `return_rate_300` decimal(8,2) not null default 0.80,
+  `return_rate_600` decimal(8,2) not null default 0.85,
+  `return_rate_1800` decimal(8,2) not null default 0.87,
+  `return_rate_3600` decimal(8,2) not null default 0.90,
+  `open_time` int(11) not null default 4,
+  `stop_time` int(11) not null default 4,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+insert into  configs (id) value (1);

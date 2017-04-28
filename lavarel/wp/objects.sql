@@ -22,6 +22,24 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+create table if not exists `configs` (
+  `id` int(11) not null AUTO_INCREMENT,
+  `limit_num` int (11) not null default 10,
+  `limit_amount` int (11) not null default 5000,
+  `return_rate_60` int(11) not null default 0.77,
+  `return_rate_180` int(11) not null default 0.77,
+  `return_rate_300` int(11) not null default 0.80,
+  `return_rate_600` int(11) not null default 0.85,
+  `return_rate_1800` int(11) not null default 0.87,
+  `return_rate_3600` int(11) not null default 0.90,
+  `open_time` int(11) not null default 4,
+  `stop_time` int(11) not null default 4,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+insert into  configs (id) value (1);
+
 --
 -- 表的结构 `objects`
 --
